@@ -66,8 +66,8 @@ var svg = d3.select("#container").append("svg:svg")
 d3.select("#container").append("h1")
     .style('position', 'absolute')
     .style('top', '230px')
-    .style('left', '450px')
-    .text('loading');
+    .style('left', '370px')
+    .text('press any key to start');
 
 // set a layer on top to post processing effect
 var cover = document.createElement('div');
@@ -81,7 +81,7 @@ if(location.href.indexOf('debug') < 0 ) {
     canvas.style['display'] = 'none';
 }
 
-var NPART = 100;
+var NPART = 1000;
 var time = 0;
 var viz_logo = new Image();
 viz_logo.src = "logo.png";
@@ -202,7 +202,7 @@ function ParticleSystem() {
       .attr("transform", function(p) {
         var x = w2 + 100*p.x/(100 + p.z)
         var y = h2 + 100*p.y/(100 + p.z)
-        var s = Math.max(0, p.size*(3*bass + 100/(130 + p.z)));
+        var s = Math.max(0, p.size*(-3 + 13*bass + 100/(130 + p.z)));
         return "translate(" + x + "," + y + ") scale(" + s+") ";
       })
       /*.style("fill", function(p) {
@@ -456,9 +456,9 @@ function rand_step() {
   return randf() < 0 ? 1: -1;
 }
 
-init();
-window.onkeypress = function(e) {
-  console.log("time " + (time))
+window.onclick = window.onkeypress = function(e) {
+  init();
+  window.onclick = window.onkeypress = function(e) {}
 }
 
 
